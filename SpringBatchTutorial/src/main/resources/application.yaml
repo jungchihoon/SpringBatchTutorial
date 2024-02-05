@@ -1,0 +1,45 @@
+spring:
+  profiles:
+    active: mariadb
+
+---
+
+spring:
+  profiles:
+    active: local
+  datasource:
+    hikari:
+      jdbc-url: jdbc:h2:mem:db;MODE=MYSQL;
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+  batch:
+    job:
+      enabled: true
+
+---
+
+spring:
+  profiles:
+    active: mariadb
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mariadb://211.43.13.165:30548/edu
+      username: edu
+      password: edu
+      driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+     ddl-auto: update
+     naming:
+       physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  batch:
+    job:
+      enabled: true
+      name: ${job.name:NONE}
+    jdbc:
+      initialize-schema: always
